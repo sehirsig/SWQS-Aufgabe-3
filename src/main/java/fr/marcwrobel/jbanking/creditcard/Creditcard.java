@@ -29,8 +29,35 @@ public class Creditcard {
     }
   }
 
+  public static String getCreditCardGroup(String ccNumber) {
+    String card = ccNumber;
+
+    String regex = "^(?:(?<visa>4[0-9]{12}(?:[0-9]{3})?)|" +
+      "(?<mastercard>5[1-5][0-9]{14})|" +
+      "(?<discover>6(?:011|5[0-9]{2})[0-9]{12})|" +
+      "(?<amex>3[47][0-9]{13})|" +
+      "(?<diners>3(?:0[0-5]|[68][0-9])?[0-9]{11})|" +
+      "(?<jcb>(?:2131|1800|35[0-9]{3})[0-9]{11}))$";
+
+    Pattern pattern = Pattern.compile(regex);
+    card = card.replaceAll("-", "");
+    Matcher matcher = pattern.matcher(card);
+
+    String[] anbieter = {"visa", "mastercard", "discover", "amex", "diners", "jcb"};
+
+    if(matcher.matches()) {
+      for (String anb : anbieter) {
+        if (anb != null) {
+          return anb;
+        }
+      }
+    }
+    return "ERROR!";
+  }
+
   public static boolean checkSumValidation(String ccNumber)
   {
+    ccNumber = ccNumber.replaceAll("-", "");
     int sum = 0;
     boolean alternate = false;
     for (int i = ccNumber.length() - 1; i >= 0; i--)
