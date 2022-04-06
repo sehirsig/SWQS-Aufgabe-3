@@ -222,4 +222,16 @@ public class CreditcardTest {
     // Clean
   }
 
+  @Test
+  @DisplayName("getCreditCardGroup Invalid Test")
+  void getCreditCardGroup_Invalid() {
+    // Setup: Text Fixture
+    String creditcard = "0000-0000-0000-0000";
+    // Execute
+    String result = Creditcard.getCreditCardGroup(creditcard);
+    // Verify
+    assertEquals("ERROR!", result, "0000-0000-0000-0000 should return an ERROR");
+    // Clean
+  }
+
 }
