@@ -23,7 +23,7 @@ public class Creditcard {
     Matcher matcher = pattern.matcher(card);
 
     if (matcher.matches()) {
-      return true;
+      return checkSumValidation(card);
     } else {
       return false;
     }
