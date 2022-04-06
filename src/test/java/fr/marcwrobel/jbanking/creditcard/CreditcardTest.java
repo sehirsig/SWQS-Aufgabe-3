@@ -154,6 +154,18 @@ public class CreditcardTest {
   }
 
   @Test
+  @DisplayName("checkSumValidation Invalid Argument Test")
+  void checkSumValidation_IllegalArgument() {
+    // Setup: Text Fixture
+    String creditcard = "hallo";
+    // Execute
+    boolean result = Creditcard.checkSumValidation(creditcard);
+    // Verify
+    assertEquals(false, result, "hallo should not have a valid checkSum");
+    // Clean
+  }
+
+  @Test
   @DisplayName("getCreditCardGroup VisaSparkasseDE Test")
   void getCreditCardGroup_VisaSparkasseDE() {
     // Setup: Text Fixture
@@ -236,6 +248,8 @@ public class CreditcardTest {
     // Clean
   }
 
+
+  //CSV Tests
   @ParameterizedTest(name = "{0} should be from {1}")
   @CsvSource({
     "3566-0020-2036-0505, jcb",
@@ -278,7 +292,7 @@ public class CreditcardTest {
     // Clean
   }
 
-  @ParameterizedTest(name = "checkSumValidation {0} should be {1}")
+  @ParameterizedTest(name = "checkSumValidation for {0} should be {1}")
   @CsvSource({
     "3566-0020-2036-0505, true",
     "30036-5923-21275, true",
@@ -286,7 +300,8 @@ public class CreditcardTest {
     "6504-4111-5992-3546, true",
     "5412-7512-3412-3858, true",
     "4532-4184-1054-0713, true",
-    "0000-0000-0000-0005, false"
+    "0000-0000-0000-0005, false",
+    "hallo, false"
   })
   void checkCheckSum(String cc, boolean expectedResult) {
     // Setup: Text Fixture
@@ -295,7 +310,7 @@ public class CreditcardTest {
     boolean result = Creditcard.checkSumValidation(cc);
     // Verify
     assertEquals(expectedResult, result,
-      "checkSumValidation " + cc + " should be"  + expectedResult);
+      "checkSumValidation for " + cc + " should be"  + expectedResult);
     // Clean
   }
 }
