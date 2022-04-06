@@ -181,11 +181,11 @@ public class CreditcardTest {
   @DisplayName("getCreditCardGroup Discover Test")
   void getCreditCardGroup_Discover() {
     // Setup: Text Fixture
-    String creditcard = "6011-4184-1054-0713";
+    String creditcard = "6504-4111-5992-3546";
     // Execute
     String result = Creditcard.getCreditCardGroup(creditcard);
     // Verify
-    assertEquals("discover", result, "6011-4184-1054-0713 should be a discover Credit Card");
+    assertEquals("discover", result, "6504-4111-5992-3546 should be a discover Credit Card");
     // Clean
   }
 
@@ -241,7 +241,7 @@ public class CreditcardTest {
     "3566-0020-2036-0505, jcb",
     "30036-5923-21275, diners",
     "3759-876543-21004, amex",
-    "6011-4184-1054-0713, discover",
+    "6504-4111-5992-3546, discover",
     "5412-7512-3412-3858, mastercard",
     "4532-4184-1054-0713, visa",
     "xxxx-xxxx-xxxx-xxxx, ERROR!"
@@ -257,5 +257,45 @@ public class CreditcardTest {
     // Clean
   }
 
+  @ParameterizedTest(name = "Validation of {0} should be {1}")
+  @CsvSource({
+    "3566-0020-2036-0505, true",
+    "30036-5923-21275, true",
+    "3759-876543-21004, true",
+    "6504-4111-5992-3546, true",
+    "5412-7512-3412-3858, true",
+    "4532-4184-1054-0713, true",
+    "xxxx-xxxx-xxxx-xxxx, false"
+  })
+  void checkValid(String cc, boolean expectedResult) {
+    // Setup: Text Fixture
+    // => CSVSOURCE
+    // Execute
+    boolean result = Creditcard.checkCardValid(cc);
+    // Verify
+    assertEquals(expectedResult, result,
+      "Validation of " + cc + " should be"  + expectedResult);
+    // Clean
+  }
 
+  @ParameterizedTest(name = "checkSumValidation {0} should be {1}")
+  @CsvSource({
+    "3566-0020-2036-0505, true",
+    "30036-5923-21275, true",
+    "3759-876543-21004, true",
+    "6504-4111-5992-3546, true",
+    "5412-7512-3412-3858, true",
+    "4532-4184-1054-0713, true",
+    "0000-0000-0000-0005, false"
+  })
+  void checkCheckSum(String cc, boolean expectedResult) {
+    // Setup: Text Fixture
+    // => CSVSOURCE
+    // Execute
+    boolean result = Creditcard.checkSumValidation(cc);
+    // Verify
+    assertEquals(expectedResult, result,
+      "checkSumValidation " + cc + " should be"  + expectedResult);
+    // Clean
+  }
 }
