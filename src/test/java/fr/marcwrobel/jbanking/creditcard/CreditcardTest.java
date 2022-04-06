@@ -2,6 +2,8 @@ package fr.marcwrobel.jbanking.creditcard;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 import static fr.marcwrobel.jbanking.TestUtils.shouldHaveThrown;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
@@ -221,5 +223,27 @@ public class CreditcardTest {
     assertEquals("jcb", result, "3566-0020-2036-0505 should be a visa Credit Card");
     // Clean
   }
+
+  @ParameterizedTest(name = "{0} should be from {1}")
+  @CsvSource({
+    "3566-0020-2036-0505, jcb",
+    "30036-5923-21275, diners",
+    "3759-876543-21004, amex",
+    "6011-4184-1054-0713, discover",
+    "5412-7512-3412-3858, mastercard",
+    "4532-4184-1054-0713, visa",
+    "xxxx-xxxx-xxxx-xxxx, ERROR!"
+  })
+  void getGroup(String cc, String expectedResult) {
+    // Setup: Text Fixture
+    // => CSVSOURCE
+    // Execute
+    String result = Creditcard.getCreditCardGroup(cc);
+    // Verify
+    assertEquals(expectedResult, result,
+      cc + " should be from "  + expectedResult);
+    // Clean
+  }
+
 
 }
