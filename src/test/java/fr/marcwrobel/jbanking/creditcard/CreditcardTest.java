@@ -20,6 +20,54 @@ public class CreditcardTest {
   // Verify
   // Clean
   @Test
+  @DisplayName("checkCardValid Card that starts with 0 Test")
+  void checkCardValid_StartsWithZero() {
+    // Setup: Text Fixture
+    String creditcard = "0532-4184-1054-0713";
+    // Execute
+    boolean result = Creditcard.checkCardValid(creditcard);
+    // Verify
+    assertEquals(false, result, "0532-4184-1054-0713 should be a valid Credit Card");
+    // Clean
+  }
+
+  @Test
+  @DisplayName("checkCardValid MasterCard Test")
+  void checkCardValid_MasterCard() {
+    // Setup: Text Fixture
+    String creditcard = "5412-7512-3412-3858";
+    // Execute
+    boolean result = Creditcard.checkCardValid(creditcard);
+    // Verify
+    assertEquals(true, result, "5412-7512-3412-3858 should be a valid Credit Card");
+    // Clean
+  }
+
+  @Test
+  @DisplayName("checkCardValid Amex Test")
+  void checkCardValid_Amex() {
+    // Setup: Text Fixture
+    String creditcard = "3759-876543-21004";
+    // Execute
+    boolean result = Creditcard.checkCardValid(creditcard);
+    // Verify
+    assertEquals(true, result, "3759-876543-21004 should be a valid Credit Card");
+    // Clean
+  }
+
+  @Test
+  @DisplayName("checkCardValid JCB Test")
+  void checkCardValid_JCB() {
+    // Setup: Text Fixture
+    String creditcard = "3566-0020-2036-0505";
+    // Execute
+    boolean result = Creditcard.checkCardValid(creditcard);
+    // Verify
+    assertEquals(true, result, "3566-0020-2036-0505 should be a valid Credit Card");
+    // Clean
+  }
+
+  @Test
   @DisplayName("checkCardValid VisaSparkasseDE Test")
   void checkCardValid_VisaSparkasseDE() {
     // Setup: Text Fixture
@@ -28,6 +76,54 @@ public class CreditcardTest {
     boolean result = Creditcard.checkCardValid(creditcard);
     // Verify
     assertEquals(true, result, "4532-4184-1054-0713 should be a valid Credit Card");
+    // Clean
+  }
+
+  @Test
+  @DisplayName("empty String Test")
+  void checkCardValid_EmptyString() {
+    //Setup: Text Fixture
+    String creditcard = "";
+    //Exeute
+    boolean result = Creditcard.checkCardValid(creditcard);
+    //Verify
+    assertEquals(false, result, "Empty string shouldnt be a valid Credit Card");
+    //Clean
+  }
+
+  @Test
+  @DisplayName("checkSumValidation Mastercard Test")
+  void checkSumValidation_MasterCard() {
+    // Setup: Text Fixture
+    String creditcard = "5412-7512-3412-3858";
+    // Execute
+    boolean result = Creditcard.checkSumValidation(creditcard);
+    // Verify
+    assertEquals(true, result, "5412-7512-3412-3858 should have a valid checkSum");
+    // Clean
+  }
+
+  @Test
+  @DisplayName("checkSumValidation Amex Test")
+  void checkSumValidation_Amex() {
+    // Setup: Text Fixture
+    String creditcard = "3759-876543-21004";
+    // Execute
+    boolean result = Creditcard.checkSumValidation(creditcard);
+    // Verify
+    assertEquals(true, result, "3759-876543-21004 should have a valid checkSum");
+    // Clean
+  }
+
+  @Test
+  @DisplayName("checkSumValidation JCB Test")
+  void checkSumValidation_JCB() {
+    // Setup: Text Fixture
+    String creditcard = "3566-0020-2036-0505";
+    // Execute
+    boolean result = Creditcard.checkSumValidation(creditcard);
+    // Verify
+    assertEquals(true, result, "3566-0020-2036-0505 should have a valid checkSum");
     // Clean
   }
 
@@ -44,6 +140,18 @@ public class CreditcardTest {
   }
 
   @Test
+  @DisplayName("checkSumValidation Invalid Test")
+  void checkSumValidation_InValid() {
+    // Setup: Text Fixture
+    String creditcard = "4531-4184-1054-0713";
+    // Execute
+    boolean result = Creditcard.checkSumValidation(creditcard);
+    // Verify
+    assertEquals(false, result, "4531-4184-1054-0713 should not have a valid checkSum");
+    // Clean
+  }
+
+  @Test
   @DisplayName("getCreditCardGroup VisaSparkasseDE Test")
   void getCreditCardGroup_VisaSparkasseDE() {
     // Setup: Text Fixture
@@ -52,6 +160,65 @@ public class CreditcardTest {
     String result = Creditcard.getCreditCardGroup(creditcard);
     // Verify
     assertEquals("visa", result, "4532-4184-1054-0713 should be a visa Credit Card");
+    // Clean
+  }
+
+  @Test
+  @DisplayName("getCreditCardGroup Mastercard Test")
+  void getCreditCardGroup_MasterCard() {
+    // Setup: Text Fixture
+    String creditcard = "5412-7512-3412-3858";
+    // Execute
+    String result = Creditcard.getCreditCardGroup(creditcard);
+    // Verify
+    assertEquals("mastercard", result, "5412-7512-3412-3858 should be a mastercard Credit Card");
+    // Clean
+  }
+
+  @Test
+  @DisplayName("getCreditCardGroup Discover Test")
+  void getCreditCardGroup_Discover() {
+    // Setup: Text Fixture
+    String creditcard = "6011-4184-1054-0713";
+    // Execute
+    String result = Creditcard.getCreditCardGroup(creditcard);
+    // Verify
+    assertEquals("discover", result, "6011-4184-1054-0713 should be a discover Credit Card");
+    // Clean
+  }
+
+  @Test
+  @DisplayName("getCreditCardGroup Amex Test")
+  void getCreditCardGroup_Amex() {
+    // Setup: Text Fixture
+    String creditcard = "3759-876543-21004";
+    // Execute
+    String result = Creditcard.getCreditCardGroup(creditcard);
+    // Verify
+    assertEquals("amex", result, "3759-876543-21004 should be a amex Credit Card");
+    // Clean
+  }
+
+  @Test
+  @DisplayName("getCreditCardGroup Diners Test")
+  void getCreditCardGroup_Diners() {
+    // Setup: Text Fixture
+    String creditcard = "30036-5923-21275";
+    // Execute
+    String result = Creditcard.getCreditCardGroup(creditcard);
+    // Verify
+    assertEquals("diners", result, "30036-5923-21275 should be a diners Credit Card");
+    // Clean
+  }
+  @Test
+  @DisplayName("getCreditCardGroup JCBE Test")
+  void getCreditCardGroup_JCB() {
+    // Setup: Text Fixture
+    String creditcard = "3566-0020-2036-0505";
+    // Execute
+    String result = Creditcard.getCreditCardGroup(creditcard);
+    // Verify
+    assertEquals("jcb", result, "3566-0020-2036-0505 should be a visa Credit Card");
     // Clean
   }
 
