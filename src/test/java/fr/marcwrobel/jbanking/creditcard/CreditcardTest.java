@@ -224,6 +224,18 @@ public class CreditcardTest {
     // Clean
   }
 
+  @Test
+  @DisplayName("getCreditCardGroup Invalid Test")
+  void getCreditCardGroup_Invalid() {
+    // Setup: Text Fixture
+    String creditcard = "0000-0000-0000-0000";
+    // Execute
+    String result = Creditcard.getCreditCardGroup(creditcard);
+    // Verify
+    assertEquals("ERROR!", result, "0000-0000-0000-0000 should return an ERROR");
+    // Clean
+  }
+
   @ParameterizedTest(name = "{0} should be from {1}")
   @CsvSource({
     "3566-0020-2036-0505, jcb",
