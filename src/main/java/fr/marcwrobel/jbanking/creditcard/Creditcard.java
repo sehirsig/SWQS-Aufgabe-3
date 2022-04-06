@@ -65,7 +65,12 @@ public class Creditcard {
     boolean alternate = false;
     for (int i = ccNumber.length() - 1; i >= 0; i--)
     {
-      int n = Integer.parseInt(ccNumber.substring(i, i + 1));
+      int n = 0;
+      try {
+        n = Integer.parseInt(ccNumber.substring(i, i + 1));
+      } catch (Exception e){
+        return false;
+      }
       if (alternate)
       {
         n *= 2;
